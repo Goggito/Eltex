@@ -1,10 +1,11 @@
 #include "stdio.h"
 
 int ByteChange(int value, int byte_num, int replace) {
-  int mask = 0xFFFFFFFF & ~(0xFF << 8 * (byte_num - 1));
-  int result = (value & mask) | (replace << 8 * (byte_num - 1));
+  unsigned char* ptr = &value;
+  ptr += (byte_num - 1);
+  *ptr = replace;
 
-  return result;
+  return value;
 }
 
 int main() {
@@ -12,10 +13,10 @@ int main() {
 
   printf(" a == %X \n", a);
 
-  int c;
+  unsigned char* c = &a;
   for (int i = 0; i < 4; i++) {
-    c = ((a >> (8 * i)) & 0xFF);
-    printf(" Byte №%d == %X \n", i + 1, c);
+    printf(" Byte №%d == %X \n", i + 1, *c);
+    c++;
   }
 
   // Меняем третий байт на 0xEE
