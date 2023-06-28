@@ -96,24 +96,24 @@ int PhonebookDelete(Subscriber *book, int *entry_number, int delete_number) {
   int swap_number = 0;
   int i = 0;
 
-  while (book[delete_number].surname[i] != '\0') {
-    book[delete_number].surname[i] = '\0';
+  while (book[delete_number - 1].surname[i] != '\0') {
+    book[delete_number - 1].surname[i] = '\0';
     i++;
   }
 
   i = 0;
-  while (book[delete_number].name[i] != '\0') {
-    book[delete_number].name[i] = '\0';
+  while (book[delete_number - 1].name[i] != '\0') {
+    book[delete_number - 1].name[i] = '\0';
     i++;
   }
 
   i = 0;
-  while (book[delete_number].number[i] != '\0') {
-    book[delete_number].number[i] = '\0';
+  while (book[delete_number - 1].number[i] != '\0') {
+    book[delete_number - 1].number[i] = '\0';
     i++;
   }
 
-  swap_number = delete_number + 1;
+  swap_number = delete_number;
   while (*entry_number != swap_number) {
     PhonebookMove(book, swap_number, swap_number - 1);
     swap_number += 1;
@@ -132,7 +132,7 @@ int PhonebookSearch(Subscriber *book) {
   scanf("%s", surname);
 
   for (i = 0; i < MAX_ENTRIES; i++) {
-    if (strcmp(book[i].name, surname) == 0) {
+    if (strcmp(book[i].surname, surname) == 0) {
       printf("Result:\n");
       printf("%-5d %-20s %-20s %-20s\n", i + 1, book[i].surname, book[i].name,
              book[i].number);
