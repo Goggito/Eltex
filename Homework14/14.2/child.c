@@ -31,9 +31,7 @@ int main() {
 
   if (bytes_read > 0) {
     printf("%s\n", buffer);
-  }
-  else
-  {
+  } else {
     perror("Error reading from send_path");
   }
 

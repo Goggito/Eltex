@@ -1,7 +1,7 @@
 #include "stdio.h"
 
 int ByteChange(int value, int byte_num, int replace) {
-  unsigned char* ptr = &value;
+  unsigned char *ptr = &value;
   ptr += (byte_num - 1);
   *ptr = replace;
 
@@ -13,7 +13,7 @@ int main() {
 
   printf(" a == %X \n", a);
 
-  unsigned char* c = &a;
+  unsigned char *c = &a;
   for (int i = 0; i < 4; i++) {
     printf(" Byte №%d == %X \n", i + 1, *c);
     c++;

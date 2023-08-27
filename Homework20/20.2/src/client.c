@@ -1,5 +1,4 @@
 #include <arpa/inet.h>
-#include <netinet/ip.h>
 #include <netinet/udp.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,36 +37,22 @@ int main() {
   srv_addr.sin_port = htons(8080);
   inet_pton(AF_INET, SERVER_IP, &(srv_addr.sin_addr));
 
-  if (sendto(raw_socket, buffer, strlen(buffer) + 20, 0,
+  if (sendto(raw_socket, buffer, strlen(buffer), 0,
              (struct sockaddr *)&srv_addr, sizeof(srv_addr)) < 0) {
     perror("Error accepting connection\n");
     close(raw_socket);
     exit(EXIT_FAILURE);
   }
 
-  memset(buffer, 0, 4096);
-
   while (1) {
-    int received_bytes =
-        recvfrom(raw_socket, buffer, BUFF_SIZE + 20, 0, NULL, NULL);
+    int received_bytes = recvfrom(raw_socket, buffer, BUFF_SIZE, 0, NULL, NULL);
     if (received_bytes == -1) {
       perror("Error accepting connection\n");
       close(raw_socket);
       exit(EXIT_FAILURE);
     }
 
-    char *bufp = buffer + 20;
-
-    if (htons(((struct udphdr *)bufp)->dest) == 8888) {
-      printf(
-          "\nsrc-port = %d\ndst-port = %d\nlenght = %d\n check = "
-          "%d\nmessage:%s\n\n",
-          htons(((struct udphdr *)bufp)->source),
-          htons(((struct udphdr *)bufp)->dest),
-          htons(((struct udphdr *)bufp)->len),
-          htons(((struct udphdr *)bufp)->check),
-          (bufp + sizeof(struct udphdr)));
-    }
+    printf("\n\n%s\n", buffer);
   }
 
   close(raw_socket);

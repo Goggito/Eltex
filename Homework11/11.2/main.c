@@ -49,8 +49,7 @@ int main(int argc, char **argv) {
     default: {
       int status;
       waitpid(pid, &status, 0);
-      printf("(1) My PID = %d PPID = %d \n", getpid(),
-             getppid());
+      printf("(1) My PID = %d PPID = %d \n", getpid(), getppid());
       break;
     }
   }

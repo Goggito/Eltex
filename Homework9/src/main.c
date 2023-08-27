@@ -9,7 +9,6 @@
 
 struct winsize size;
 
-
 void sig_winch(int signo) {
   ioctl(fileno(stdout), TIOCGWINSZ, (char *)&size);
   resizeterm(size.ws_row, size.ws_col);
@@ -78,14 +77,13 @@ int main(int argc, char **argv) {
   WINDOW *main_window;
   WINDOW *text_window;
   WINDOW *menu_window;
-  
+
   FILE *fp;
   char filename[FILE_NAME_LEN];
   char file_buffer[1000000];
-  
+
   int curs_y = 0;
   int curs_x = 0;
-
 
   printf("ENTER FILE NAME: ");
   scanf("%s", filename);
@@ -118,12 +116,10 @@ int main(int argc, char **argv) {
   wbkgd(menu_window, COLOR_PAIR(2));
   wattron(menu_window, A_BOLD);
 
-  
   fread(file_buffer, sizeof(char), sizeof(file_buffer) - 1, fp);
   file_buffer[sizeof(file_buffer) - 1] = '\0';
   wprintw(text_window, "%s", file_buffer);
   fclose(fp);
-
 
   keypad(stdscr, TRUE);
   while (1) {
@@ -148,7 +144,6 @@ int main(int argc, char **argv) {
         endwin();
         return 0;
         break;
-
 
       case KEY_F(5):
         fp = fopen(filename, "w");
@@ -197,13 +192,12 @@ int main(int argc, char **argv) {
         break;
 
       default:
-        if (ch >= 32 && ch <= 127){
+        if (ch >= 32 && ch <= 127) {
           symbol_enter(text_window, curs_x, curs_y, ch, file_buffer);
           curs_x++;
         }
         break;
     }
-
   }
 
   delwin(text_window);

@@ -29,8 +29,6 @@ int main() {
     }
   }
 
-
-
   fd_read = open(send_path, O_RDONLY);
   if (fd_read == -1) {
     perror("Error opening send_path");
@@ -55,12 +53,10 @@ int main() {
   }
 
   bytes_read = read(fd_read, buffer, sizeof(buffer));
-  
+
   if (bytes_read > 0) {
     printf("%s\n", buffer);
-  }
-  else
-  {
+  } else {
     perror("Error reading from send_path");
   }
 

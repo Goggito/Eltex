@@ -4,7 +4,6 @@
 #include "operations.h"
 
 int main() {
-
   int option = 0;
   int exit_cheak = 0;
   int a = 0;
@@ -36,7 +35,7 @@ int main() {
         scanf(" %d", &a);
         printf("\n Enter B number:");
         scanf(" %d", &b);
-        result = my_add (a, b);
+        result = my_add(a, b);
         break;
 
       case 2:
@@ -69,7 +68,6 @@ int main() {
       default:
         break;
     }
-    
   }
 
   return 0;
