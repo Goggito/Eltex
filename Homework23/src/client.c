@@ -8,23 +8,15 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFF_SIZE 4096
-
 #define DEST_IP "192.168.31.255"
 #define DEST_PORT 8080
 #define DEST_MAC "ff:ff:ff:ff:ff:ff"
 
-#define SOURS_IP "127.0.0.1"
-#define SOURS_PORT 8888
-#define SOURCE_MAC "00:11:22:33:44:55" // Ваш MAC адрес
-
 int main() {
-  char buffer[BUFF_SIZE];
   char msg[] = "Broadcast Hello!";
 
   int socket_fd;
   struct sockaddr_in broadcast_addr;
-
 
   socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
   if (socket_fd == -1) {
@@ -49,17 +41,6 @@ int main() {
     perror("Error accepting connection\n");
     close(socket_fd);
     exit(EXIT_FAILURE);
-  }
-
-  while (1) {
-    int received_bytes = recvfrom(socket_fd, buffer, BUFF_SIZE, 0, NULL, NULL);
-    if (received_bytes == -1) {
-      perror("Error accepting connection\n");
-      close(socket_fd);
-      exit(EXIT_FAILURE);
-    }
-
-    break;
   }
 
   close(socket_fd);
